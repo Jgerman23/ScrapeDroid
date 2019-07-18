@@ -1,7 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-
+var path = require("path");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
@@ -19,8 +19,27 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost/ScrapeDroid", { useNewUrlParser: true });
 
+app.get("/", function (request, response) {
+    response.sendFile(path.join(__dirname, "index.html"));
+});
 
-app.get("/scrape", function (req, res) {
+app.get("/display-saved", function (request, response) {
+    db.Article.find({ saved: true }
+        ).then(function(data) {
+            response.json(data);
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+});
+
+app.get("/saved-articles", function(request, response){
+    response.sendFile(path.join(__dirname, "/public/html/saved.html"));
+})
+
+
+app.get("/scraped", function (req, res) {
+    res.sendFile(path.join(__dirname, "/public/html/scraped.html"));
     axios.get("https://www.androidpolice.com/").then(function (response) {
         var $ = cheerio.load(response.data);
 
@@ -44,7 +63,7 @@ app.get("/scrape", function (req, res) {
 });
 
 
-app.get("/articles", function (req, res) {    
+app.get("/articles", function (req, res) {
     db.Article.find({})
         .then(function (dbArticle) {
             res.json(dbArticle);
@@ -55,7 +74,9 @@ app.get("/articles", function (req, res) {
 });
 
 
-app.get("/articles/:id", function (req, res) {                    
+
+
+app.get("/articles/:id", function (req, res) {
 
     db.Article.find({ "_id": req.params.id })
         .populate("note")
@@ -68,15 +89,16 @@ app.get("/articles/:id", function (req, res) {
 });
 
 
-app.put("/save-article/:id", function(req, res) {
-    db.Article.findByIdAndUpdate({ "_id": req.params.id }, { $set: { saved: true }
-    }).then(function(data) {
+app.put("/save-article/:id", function (req, res) {
+    db.Article.findByIdAndUpdate({ "_id": req.params.id }, {
+        $set: { saved: true }
+    }).then(function (data) {
         res.json(data);
     });
 });
 
 
-app.post("/articles/:id", function (req, res) {                    
+app.post("/articles/:id", function (req, res) {
 
     db.Note.create(req.body)
         .then(function (dbNote) {
@@ -90,6 +112,13 @@ app.post("/articles/:id", function (req, res) {
         });
 
 });
+
+app.post("/delete-note/:id", function(req, res){
+    db.Note.findOneAndRemove({"_id": req.params.id}).then(function(results){
+        res.json(results);
+    }).catch(function(err) { res.json(err) });
+});
+
 
 app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
