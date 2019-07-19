@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost/ScrapeDroid", { useNewUrlParser: true });
+mongoose.set('useFindAndModify', false);
 
 app.get("/", function (request, response) {
     response.sendFile(path.join(__dirname, "index.html"));
@@ -40,6 +41,11 @@ app.get("/saved-articles", function(request, response){
 
 app.get("/scraped", function (req, res) {
     res.sendFile(path.join(__dirname, "/public/html/scraped.html"));
+    db.Article.deleteMany({saved: "false"}, function(err){
+        if (err){
+            console.log(err)
+        }
+    });
     axios.get("https://www.androidpolice.com/").then(function (response) {
         var $ = cheerio.load(response.data);
 
@@ -113,8 +119,12 @@ app.post("/articles/:id", function (req, res) {
 
 });
 
-app.post("/delete-note/:id", function(req, res){
-    db.Note.findOneAndRemove({"_id": req.params.id}).then(function(results){
+app.delete("/delete-note/:article_id/:note_id", function(req, res){
+    db.Note.findOneAndRemove({"_id": req.params.note_id}).then(function(results){
+        console.log(results);
+    }).then(function(data){
+         db.Article.findOneAndUpdate({'_id': req.params.article_id}, { $set: {'note': ''}});
+    }).then(function(data){
         res.json(results);
     }).catch(function(err) { res.json(err) });
 });

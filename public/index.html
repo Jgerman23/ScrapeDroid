@@ -13,13 +13,101 @@
     <title>Scrape Droid</title>
 </head>
 
+<style>
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://wallpaper.wiki/wp-content/uploads/2017/04/wallpaper.wiki-Android-Cool-hd-photos-download-PIC-WPD0010619.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        color: white;
+    }
+
+    .navbar {
+        width: 100%;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+    }
+
+    #navbarNav {
+        margin-left: 75%;
+    }
+
+    .nav-line {
+        margin-top: 7px !important;
+        color: #202124
+    }
+
+    #explainDiv {
+        text-align: center !important;
+    }
+
+    .jumbotron {
+        border-radius: 15px;
+        text-align: center;
+        color: #202124;
+        width: 700px;
+        float: left;
+        margin-left: 95px;
+    }
+
+    #imageExplain {
+        border: #202124 solid 2px;
+        width: 600px;
+        height: 250px;
+        border-radius: 10px;
+    }
+
+    hr{
+        border: 1px solid gray;
+    }
+
+    .linkTitle{
+        font-size: 1.5em;
+    }
+</style>
+
 <body>
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Scrape Droid</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/scraped">Scrape Articles</a>
+                </li>
+                <li class="nav-line">|</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/saved-articles">Saved Articles</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <br>
+
+    <div  id="explainDiv">
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <img src="/images/scrape-explain.png" alt="explanation" id="imageExplain">
+                <p class="lead" id="textExplain">Please click on Scrape Articles to get started.</p>
+            </div>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <img src="/images/saved-explain.png" alt="explanation" id="imageExplain">
+                <p class="lead" id="textExplain">Save an article and view them in Saved Articles.</p>
+            </div>
+        </div>
+
+    </div>
+
     <div id="wrapper">
-        <h1>Scrape Droid</h1>        
-        <button><a href="/scraped">Click Here To Scrape</a></button>
-        <button><a href="/saved-articles">Click here to see saved</a></button>
-        <div class="containers"></div>
-        <div id="notes"></div>
+        <div class="container"></div>
     </div>
 </body>
 

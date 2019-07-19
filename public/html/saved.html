@@ -13,11 +13,87 @@
     <title>Scrape Droid</title>
 </head>
 
+<style>
+    body {
+        background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://wallpaper.wiki/wp-content/uploads/2017/04/wallpaper.wiki-Android-Cool-hd-photos-download-PIC-WPD0010619.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        color: white;
+    }
+
+    .navbar {
+        width: 100%;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+    }
+
+    #wrapper {
+        width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 5%;
+    }
+
+    #containers {
+        display: inline-block;
+        overflow: auto;
+        width: 60%;
+        height: 700px;
+    }
+
+    #notes {
+        float: right;
+        width: 30%;
+    }
+
+    textarea,
+    input {
+        display: block;
+        width: 100%;        
+    }
+
+    input {
+        height: 36px;
+        font-size: 24px;
+    }
+
+    textarea {
+        height: 200px;
+        font-size: 18px;
+    }
+
+    hr{
+        border: 1px solid gray;
+    }
+</style>
+
 <body>
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Scrape Droid</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <br>
+
     <div id="wrapper">
-        <h1>Scrape Droid</h1>        
-        <button><a href="/">Go back to Home Page</a></button>
-        <div class="containers"></div>
+        <div id="containers">
+            <div class="saveArticleEx">
+                <h2>Looks like you didn't save any articles,
+                    go back to the Home Page and Click the SAVE button to see them here.
+                </h2>
+            </div>
+        </div>
         <div id="notes"></div>
     </div>
 </body>

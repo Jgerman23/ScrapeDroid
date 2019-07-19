@@ -9,16 +9,56 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    
+
     <title>Scrape Droid</title>
 </head>
 
+<style>
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://wallpaper.wiki/wp-content/uploads/2017/04/wallpaper.wiki-Android-Cool-hd-photos-download-PIC-WPD0010619.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        color: white;
+    }
+
+    .row{
+        text-align: center !important;
+        display: block;
+    }
+
+    .homeLink{
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
 <body>
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Scrape Droid</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        </div>
+    </nav>
+
+    <br>
+
     <div id="wrapper">
-        <h1>Scrape Droid</h1>        
-        
-        <button><a href="/">Go Back Home</a></button>
-    
+        <div class="container">
+            <div class="row">
+                <h1>Scrape Droid Has Scraped The Latest Android News For You!</h1>
+            </div>
+            <div class="row">
+                <h3>Please Go Back Home To View Them</h3>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-secondary btn-lg"><a href="/" class="homeLink">Home</a></button>
+            </div>
+        </div>
     </div>
 </body>
 
