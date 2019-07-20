@@ -17,11 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// mongoose.connect(MONGODB_URI);
 
-mongoose.connect(MONGODB_URI);
-
-// mongoose.connect("mongodb://localhost/ScrapeDroid", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/ScrapeDroid", { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false);
 
 app.get("/", function (request, response) {
@@ -30,26 +29,22 @@ app.get("/", function (request, response) {
 
 app.get("/display-saved", function (request, response) {
     db.Article.find({ saved: true }
-        ).then(function(data) {
-            response.json(data);
-        })
-        .catch(function(err){
+    ).then(function (data) {
+        response.json(data);
+    })
+        .catch(function (err) {
             console.log(err);
         })
 });
 
-app.get("/saved-articles", function(request, response){
+app.get("/saved-articles", function (request, response) {
     response.sendFile(path.join(__dirname, "/public/html/saved.html"));
 })
 
 
 app.get("/scraped", function (req, res) {
     res.sendFile(path.join(__dirname, "/public/html/scraped.html"));
-    db.Article.deleteMany({saved: "false"}, function(err){
-        if (err){
-            console.log(err)
-        }
-    });
+    db.Article.collection.drop();
     axios.get("https://www.androidpolice.com/").then(function (response) {
         var $ = cheerio.load(response.data);
 
@@ -123,14 +118,14 @@ app.post("/articles/:id", function (req, res) {
 
 });
 
-app.delete("/delete-note/:article_id/:note_id", function(req, res){
-    db.Note.findOneAndRemove({"_id": req.params.note_id}).then(function(results){
+app.delete("/delete-note/:article_id/:note_id", function (req, res) {
+    db.Note.findOneAndRemove({ "_id": req.params.note_id }).then(function (results) {
         console.log(results);
-    }).then(function(data){
-         db.Article.findOneAndUpdate({'_id': req.params.article_id}, { $set: {'note': ''}});
-    }).then(function(data){
+    }).then(function (data) {
+        db.Article.findOneAndUpdate({ '_id': req.params.article_id }, { $set: { 'note': '' } });
+    }).then(function (data) {
         res.json(results);
-    }).catch(function(err) { res.json(err) });
+    }).catch(function (err) { res.json(err) });
 });
 
 
